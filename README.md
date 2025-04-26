@@ -1,10 +1,34 @@
-# DC Mini Project - NS-3 Simulation and Analysis
+# Data Communication (CS255) Mini Project - NS-3 Simulation and Analysis
 
 This project simulates and analyzes client loss ratios in a wireless network using ns-3, and visualizes the results.
 
 ---
 
-## Project Structure
+## Pre-Setup
+
+- I have used **ns-3-dev**, cloned from the official GitLab repository:
+  ```
+  https://gitlab.com/nsnam/ns-3-dev.git
+  ```
+
+- This DC_Mini_Project should be placed inside your `/ns-3-dev/` directory.
+
+Clone the project inside your ns-3 directory:
+
+```bash
+cd ~/ns-3-dev/
+git clone https://github.com/sblprateek05/DC_Mini_Project
+```
+
+Move the necessary files:
+
+```bash
+cd ~/ns-3-dev/
+mv DC_Mini_Project/main.cc scratch/
+mv DC_Mini_Project/main.sh .
+```
+
+Ensure your structure looks like this **before running main.sh**:
 
 ```
 ~/ns-3-dev/
@@ -14,19 +38,9 @@ This project simulates and analyzes client loss ratios in a wireless network usi
 ├── DC_Mini_Project/
 │   ├── analyze.py
 │   ├── plot.py
-│   ├── plot2.py
+│   ├── compare.py
 │   ├── analyzeall.sh
 │   ├── summerize.sh
-│   ├── flowData/
-│   │    ├── sv0-ps512/
-│   │    └── sv0-ps1500/
-│   ├── animData/
-│   │    ├── sv0-ps512/
-│   │    └── sv0-ps1500/
-│   ├── analyzedData/
-│   │    ├── sv0-ps512/
-│   │    └── sv0-ps1500/
-│   └── summarizedData/
 └── (other ns-3 core files)
 ```
 
@@ -57,6 +71,34 @@ bash main.sh
 - Runs simulations for node counts 2 to 30 for two packet sizes (512 and 1500 bytes).
 - Moves FlowMonitor and NetAnim output files into appropriate folders.
 
+Ensure your structure looks like this **after running main.sh**:
+
+```
+~/ns-3-dev/
+├── main.sh
+├── scratch/
+│   └── main.cc
+├── DC_Mini_Project/
+│   ├── analyze.py
+│   ├── plot.py
+│   ├── compare.py
+│   ├── analyzeall.sh
+│   ├── summerize.sh
+│   ├── flowData/
+│   │    ├── sv0-ps512/
+│   │    └── sv0-ps1500/
+│   ├── animData/
+│   │    ├── sv0-ps512/
+│   │    └── sv0-ps1500/
+│   ├── analyzedData/
+│   │    ├── sv0-ps512/
+│   │    └── sv0-ps1500/
+│   └── summarizedData/
+└── (other ns-3 core files)
+```
+
+---
+
 ### 2. Analyze Simulation Results
 
 ```bash
@@ -71,6 +113,8 @@ bash analyzeall.sh sv0-ps1500
 - Generates `.txt` reports inside `analyzedData/<config>/`.
 - Appends summarized client loss ratios to `summarizedData/<config>.csv`.
 
+---
+
 ### 3. Summarize Important Metrics
 
 ```bash
@@ -82,28 +126,29 @@ bash summerize.sh sv0-ps1500
 - Takes a configuration name as an argument.
 - Extracts and prints packet loss summaries from analyzed `.txt` files.
 
+---
+
 ### 4. Plot and Compare Results
 
-#### Main Plotting:
+#### Single Configuration Plot
 ```bash
-python3 plot.py
+python3 plot.py summarizedData/sv0-ps512.csv
 ```
 
 **plot.py**
-- Reads `sv0-ps512.csv` and `sv0-ps1500.csv` from `summarizedData/`.
-- Plots client loss ratio vs number of nodes.
-- Saves the comparison plot as `summarizedData/client_loss_comparison.pdf`.
-
-#### Optional Simple Plotting:
-```bash
-python3 plot2.py summarizedData/sv0-ps512.csv
-python3 plot2.py summarizedData/sv0-ps1500.csv
-```
-
-**plot2.py**
 - A lightweight plotting tool.
 - Plots a simple visualization of client loss ratio for a single configuration.
 - Saves the plot as a PDF next to the input `.csv` file.
+
+#### Compare Both Configurations
+```bash
+python3 compare.py
+```
+
+**compare.py**
+- Reads `sv0-ps512.csv` and `sv0-ps1500.csv` from `summarizedData/`.
+- Plots and compares Client Loss Ratios for both 512 and 1500 packet sizes.
+- Saves the comparison plot as `summarizedData/client_loss_comparison.pdf`.
 
 ---
 
@@ -119,12 +164,12 @@ python3 plot2.py summarizedData/sv0-ps1500.csv
 
 ## Notes
 
-- All scripts handle directory creation safely.
-- All simulations run automatically for nodes 2 to 30.
-- CSV files are generated automatically by `analyze.py`.
-- The final graph cleanly compares RTS/CTS vs No RTS/CTS scenarios.
-- Optional `plot2.py` is available for fast individual plotting.
+- All directories are created automatically by scripts.
+- Simulations run automatically for node counts from 2 to 30.
+- CSV summaries are generated automatically by `analyze.py`.
+- Optional simple plotting available with `plot.py`.
+- Full comparison plotting available with `compare.py`.
 
 ---
 
-> Project Developed for Data Communication Mini Project Assignment 🚀
+> Project Developed for Data Communication(CS255) Mini Project Assignment 🚀
