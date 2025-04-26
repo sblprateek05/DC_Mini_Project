@@ -1,6 +1,6 @@
-# Data Communication (CS255) Mini Project - NS-3 Simulation and Analysis
+# Data Communication Mini Project - Simulation and Analysis of CSMA CA in NS3
 
-This project simulates and analyzes client loss ratios in a wireless network using ns-3, and visualizes the results.
+This project simulates and analyzes client loss ratios in a wireless network using ns-3, focusing on CSMA/CA, and visualizes the results.
 
 ---
 
@@ -21,6 +21,8 @@ git clone https://github.com/sblprateek05/DC_Mini_Project
 ```
 
 Move the necessary files:
+1) Move main.cc from `/ns-3-dev/DC_Mini_Project/` to `/ns-3-dev/scratch/`
+2) Move main.sh from `/ns-3-dev/DC_Mini_Project/` to `/ns-3-dev/`
 
 ```bash
 cd ~/ns-3-dev/
@@ -133,6 +135,7 @@ bash summerize.sh sv0-ps1500
 #### Single Configuration Plot
 ```bash
 python3 plot.py summarizedData/sv0-ps512.csv
+python3 plot.py summarizedData/sv0-ps1500.csv
 ```
 
 **plot.py**
@@ -172,4 +175,4 @@ python3 compare.py
 
 ---
 
-> Project Developed for Data Communication(CS255) Mini Project Assignment 🚀
+> Project Developed for Data Communication(CS255)-NITK Course Mini Project  🚀
